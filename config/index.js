@@ -3,7 +3,8 @@ dotenv.config();
 
 
 export const {
-    
-MONGODB_URL
+
+MONGODB_URL,
+PORT
 
 } = process.env;
