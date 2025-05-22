@@ -3,7 +3,6 @@ const validationHandler = (res, validations) => {
   if (!validations.isEmpty()) {
     const errors = validations.array();
     extractedErrors = {};
-    console.log(errors);
     for (const err in errors) {
       const error = errors[err];
       if (!extractedErrors[error.path]) {

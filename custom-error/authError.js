@@ -11,4 +11,20 @@ class UserNotFoundError extends AppError {
   }
 }
 
-export { UserAlreadyExistsError, UserNotFoundError };
+class Unauthorized extends AppError {
+  constructor() {
+    super("User not Authorized", 401);
+  }
+}
+class TokenExpired extends AppError {
+  constructor() {
+    super("Token has been expired", 401);
+  }
+}
+
+export {
+  UserAlreadyExistsError,
+  UserNotFoundError,
+  Unauthorized,
+  TokenExpired,
+};

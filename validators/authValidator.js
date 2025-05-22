@@ -1,6 +1,6 @@
 import { body } from "express-validator";
 
-const validator = {
+const authValidator = {
   login() {
     return [
       body("email")
@@ -82,4 +82,4 @@ const validator = {
   },
 };
 
-export default validator;
+export default authValidator;

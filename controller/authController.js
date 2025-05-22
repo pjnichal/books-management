@@ -1,4 +1,3 @@
-import bcrypt from "bcrypt";
 import { validationResult } from "express-validator";
 import validationHandler from "../handler/validationHandler.js";
 import User from "../model/user.model.js";
@@ -30,10 +29,7 @@ const login = async (req, res, next) => {
 
     const accessToken = jwtService.generateAccessToken(tokenPayload);
     const refreshToken = jwtService.generateRefreshToken(tokenPayload);
-    await User.findOneAndUpdate(
-      { email: existingUser.email },
-      { $set: { refreshToken } }
-    );
+    await User.findByIdAndUpdate(existingUser._id, { $set: { refreshToken } });
     const rToken = { accessToken, refreshToken };
 
     return apiHandler(
@@ -68,15 +64,32 @@ const signup = async (req, res, next) => {
 
 const accessToken = async (req, res, next) => {
   const validations = validationResult(req);
-
-  const errors = CustomHelperService.hasValidationError(validations);
-
-  if (errors)
-    return next(CustomErrorService.unProcessableEntity(errors, "SGIN-UPE-0"));
+  if (!validations.isEmpty()) return validationHandler(res, validations);
 
   try {
-    //service.signIn()
-    return res.status(201).json(response);
+    const { refreshToken } = req.body;
+
+    const decoded = jwtService.verifyRefreshToken(refreshToken);
+    const existingUser = await User.findById(decoded.userId);
+
+    if (!existingUser || existingUser.refreshToken !== refreshToken) {
+      return next(new UserNotFoundError());
+    }
+    const tokenPayload = {
+      email: existingUser.email,
+      userId: existingUser._id,
+    };
+
+    const newAccessToken = jwtService.generateAccessToken(tokenPayload);
+
+    return apiHandler(
+      res,
+      {
+        message: "Access token refreshed successfully",
+        accessToken: newAccessToken,
+      },
+      200
+    );
   } catch (error) {
     return next(error);
   }

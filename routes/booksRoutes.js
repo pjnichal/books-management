@@ -1,16 +1,17 @@
 import express from "express";
-import { authValidator } from "../validators/index.js";
-import { authController } from "../controller/index.js";
+import { bookValidator, reviewValidator } from "../validators/index.js";
+import { bookController, reviewController } from "../controller/index.js";
+import authMiddleware from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/signup", authValidator.signup(), authController.signup);
-router.post("/login", authValidator.login(), authController.login);
-
+router.post("/", bookValidator.addBook(), bookController.addBook);
+router.get("/", bookValidator.getAllBooks(), bookController.getAllBooks);
+router.get("/:id", bookValidator.getBookById(), bookController.getBookById);
 router.post(
-  "/access-token",
-  authValidator.access(),
-  authController.accessToken
+  "/:id/reviews",
+  authMiddleware,
+  reviewValidator.addReview(),
+  reviewController.addReview
 );
-
 export default router;
