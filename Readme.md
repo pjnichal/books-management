@@ -4,10 +4,7 @@ A RESTful API for managing books, users, and reviews, built with Node.js, Expres
 
 ## API Testing
 
-You can use the provided [Postman collection](./books-management.postman_collection.json) to test all endpoints easily.
-
-1. Import the collection into Postman.
-2. Set up environment variables as needed (e.g., `BASE_URL`, `TOKEN`).
+You can use the provided [Postman collection](./postman-collection/BooksManagment.postman_collection.json) to test all endpoints easily.
 
 ## Features
 
