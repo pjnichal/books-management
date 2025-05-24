@@ -24,7 +24,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\":\"nichal.pravin2001@gmail.com\",\n    \"password\":\"Pravin@@2001\",\n    \"name\":\"Pravin\"\n}",
+					"raw": "{\n    \"email\":\"nichal.pravin2001@gmail.com\",\n    \"password\":\"Acdef@12345\",\n    \"name\":\"Pravin\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -64,7 +64,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\":\"nichal.pravin2001@gmail.com\",\n    \"password\":\"ABCD@1234\"\n}",
+					"raw": "{\n    \"email\":\"nichal.pravin2001@gmail.com\",\n    \"password\":\"Acdef@12345\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -95,7 +95,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "{{access-token}}",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pY2hhbC5wcmF2aW4yMDAxQGdtYWlsLmNvbSIsInVzZXJJZCI6IjY4MzE5MTI2ZTcyYTM2YmM4OGZmMTVmNCIsImlhdCI6MTc0ODA3ODg5NCwiZXhwIjoxNzQ4MDc5Nzk0fQ.DM4U-sdAjNa7F_ozF7JvJAk7Qx9vV9L8jjuH37erpKM",
 							"type": "string"
 						}
 					]
@@ -104,7 +104,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\":\"heh Hello\",\n    \"author\":\"GOD\",\n    \"publisher\":\"Pravin\",\n    \"genre\":[\"hehe\"]\n}",
+					"raw": "{\n  \"title\": \"Harry Potter and the Philosopher's Stone\",\n  \"author\": \"J.K. Rowling\",\n  \"publisher\": \"Bloomsbury\",\n  \"genre\": [\"Fantasy\", \"Adventure\", \"Young Adult\"]\n}\n",
 					"options": {
 						"raw": {
 							"language": "json"
