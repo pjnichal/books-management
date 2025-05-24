@@ -66,20 +66,6 @@ const authValidator = {
         .withMessage("Name must be at least 2 characters long"),
     ];
   },
-  access() {
-    return [
-      body("refreshToken")
-        .trim()
-        .notEmpty()
-        .withMessage("Refresh Token must not be empty.")
-        .isLength({ max: 500 })
-        .withMessage(
-          "Sensible maximum length for Refresh Token is 500 charecters only."
-        )
-        .isJWT()
-        .withMessage("Invalid Refresh Token! It should be a JWT."),
-    ];
-  },
 };
 
 export default authValidator;

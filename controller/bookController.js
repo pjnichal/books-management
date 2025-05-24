@@ -26,6 +26,7 @@ const addBook = async (req, res, next) => {
     return next(error);
   }
 };
+
 const getAllBooks = async (req, res, next) => {
   try {
     const { limit = 10, offset = 0, author, genre } = req.query;
@@ -50,11 +51,15 @@ const getAllBooks = async (req, res, next) => {
     })
       .skip(parseInt(offset))
       .limit(parseInt(limit));
+
+    if (allBooks.length === 0) return next(new BookNotFound());
+
     return apiHandler(res, { message: "Book details", allBooks }, 200);
   } catch (error) {
     return next(error);
   }
 };
+
 const getBookById = async (req, res, next) => {
   try {
     const validations = validationResult(req);
@@ -95,4 +100,31 @@ const getBookById = async (req, res, next) => {
     return next(error);
   }
 };
-export { addBook, getAllBooks, getBookById };
+const searchBooks = async (req, res, next) => {
+  try {
+    const { query } = req.query;
+
+    const regex = new RegExp(query, "i");
+
+    const books = await Book.find(
+      {
+        $or: [{ title: { $regex: regex } }, { author: { $regex: regex } }],
+      },
+      {
+        _id: 1,
+        title: 1,
+        author: 1,
+        genre: 1,
+        publisher: 1,
+      }
+    );
+    
+    if (books.length === 0) return next(new BookNotFound());
+
+    return apiHandler(res, { books }, 200);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+export { addBook, getAllBooks, getBookById, searchBooks };

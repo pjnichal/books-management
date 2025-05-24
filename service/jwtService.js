@@ -13,12 +13,6 @@ const generateAccessToken = (payload) => {
   });
 };
 
-// Generate Refresh Token
-const generateRefreshToken = (payload) => {
-  return jwt.sign(payload, REFRESH_TOKEN_SECRET, {
-    expiresIn: REFRESH_TOKEN_EXPIRES_IN,
-  });
-};
 
 // Verify Access Token
 const verifyAccessToken = (token) => {
@@ -29,18 +23,10 @@ const verifyAccessToken = (token) => {
   }
 };
 
-// Verify Refresh Token
-const verifyRefreshToken = (token) => {
-  try {
-    return jwt.verify(token, REFRESH_TOKEN_SECRET);
-  } catch (err) {
-    throw new Error("Invalid or expired refresh token");
-  }
-};
 
 export {
   generateAccessToken,
-  generateRefreshToken,
+  
   verifyAccessToken,
-  verifyRefreshToken,
+  
 };

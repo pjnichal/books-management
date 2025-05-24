@@ -71,5 +71,17 @@ const bookValidator = {
         }),
     ];
   },
+  searchBooks() {
+    return [
+      query("query")
+        .trim()
+        .notEmpty()
+        .withMessage("Search query is required")
+        .isString()
+        .withMessage("Query must be a string")
+        .isLength({ min: 2 })
+        .withMessage("Search query must be at least 2 characters long"),
+    ];
+  },
 };
 export default bookValidator;

@@ -28,9 +28,7 @@ const login = async (req, res, next) => {
     };
 
     const accessToken = jwtService.generateAccessToken(tokenPayload);
-    const refreshToken = jwtService.generateRefreshToken(tokenPayload);
-    await User.findByIdAndUpdate(existingUser._id, { $set: { refreshToken } });
-    const rToken = { accessToken, refreshToken };
+    const rToken = { accessToken };
 
     return apiHandler(
       res,
@@ -62,36 +60,5 @@ const signup = async (req, res, next) => {
   }
 };
 
-const accessToken = async (req, res, next) => {
-  const validations = validationResult(req);
-  if (!validations.isEmpty()) return validationHandler(res, validations);
 
-  try {
-    const { refreshToken } = req.body;
-
-    const decoded = jwtService.verifyRefreshToken(refreshToken);
-    const existingUser = await User.findById(decoded.userId);
-
-    if (!existingUser || existingUser.refreshToken !== refreshToken) {
-      return next(new UserNotFoundError());
-    }
-    const tokenPayload = {
-      email: existingUser.email,
-      userId: existingUser._id,
-    };
-
-    const newAccessToken = jwtService.generateAccessToken(tokenPayload);
-
-    return apiHandler(
-      res,
-      {
-        message: "Access token refreshed successfully",
-        accessToken: newAccessToken,
-      },
-      200
-    );
-  } catch (error) {
-    return next(error);
-  }
-};
-export { login, signup, accessToken };
+export { login, signup };

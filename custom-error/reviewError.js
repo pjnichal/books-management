@@ -5,4 +5,9 @@ class ReviewAlreadyExists extends AppError {
     super("You have already given review for this book", 400);
   }
 }
-export { ReviewAlreadyExists };
+class ReviewNotFound extends AppError {
+  constructor() {
+    super("Review doesn't exists", 404);
+  }
+}
+export { ReviewAlreadyExists, ReviewNotFound };
